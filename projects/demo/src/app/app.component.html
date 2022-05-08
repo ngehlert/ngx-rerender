@@ -1,0 +1,11 @@
+<button (click)="rerenderDirectiveWithNumber()">Rerender</button>
+<test *mcRerender="directiveWithNumberTrigger" key="Directive with Number Trigger"></test>
+
+<hr />
+
+<button (click)="rerenderComponentWithBoolean()">Rerender</button>
+<mc-rerender [(trigger)]="componentWithBooleanTrigger">
+  <ng-template mcRerenderContent>
+    <test key="Component with Boolean Trigger"></test>
+  </ng-template>
+</mc-rerender>
