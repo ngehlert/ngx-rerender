@@ -23,7 +23,7 @@ npm install --save ngx-rerender
 
 ## Usage
 
-Add the module import to your Angular model
+Add the module import to your Angular module
 ````typescript
 import { NgxRerenderModule } from 'ngx-rerender';
 @NgModule({
@@ -54,10 +54,13 @@ class MyComponent {
 ````
 Every time the `rerender` method is called the component that has the directive attached to it will be rerendered.
 
+Keep in mind changing entries inside an array will not trigger an Angular change detection. If you use an array as trigger binding,
+you need to copy the array in order to get a new reference.
+
 ### With component
-If you prefer using a component in your template you can also do this. The TypeScript part can stay exactly the same.  
+If you prefer using a component in your template you can do the following approach. The TypeScript part can stay exactly the same.  
 However, if you like you can use a boolean flag and a two-way binding and the component will always change the value back to false.
-This way you don't need to have a number but you can use a boolean value
+This way you don't need to have a number as trigger, but you can use a boolean value
 ```typescript
 class MyComponent {
   public trigger: boolean = false;
@@ -80,13 +83,13 @@ Do not change this, otherwise it will not work properly.
 ## Why
 Angular has a very robust change detection and is usually fully capable of dynamically updating components and bindings without the need to re-render entire code blocks. 
 If you are not familiar with the basics of change detection or are just starting learning Angular, I highly recommend checking out their [Documentation](https://angular.io/guide/lifecycle-hooks#lifecycle-event-sequence),
-because changes are that you don't even need this library.
+because chances are that you don't even need this library.
 
-Sometimes, especially when using 3rd-party-libraries and components, the change Angular detection is not enough. For example if no `ngOnChanges` handling is implemented so specific bindings can only be set during `ngOnInit`.  
-For those cases you can use this library to just re-render (and re-initialize) entire components.
+Sometimes, especially when using 3rd-party-libraries and components, the Angular change detection is not enough. For example if no `ngOnChanges` handling is implemented so specific bindings can only be set during `ngOnInit`.  
+For those cases you can use this library to just re-render (and re-initialize) entire component trees.
 
 ### Past workarounds
-In this small section I will show some workarounds that I've seen in the past on StackOverflow or other projects and try to explain why they might not be such a good idea.
+In this small section I will show some workarounds that I've seen in the past on StackOverflow or other projects and try to explain why they are not a good idea.
 
 #### The ngIf "Have you tried turning it off and on again?"
 The idea is to completely remove the specific component from the DOM, manually trigger a change detection and then re-add it. A basic solution looks something like this
@@ -132,7 +135,7 @@ class MyComponent {
 ````
 
 While this solves the two issues of the `ngIf` workaround (content blink and app-wide change detection) this is still not a nice solution.  
-It is very hard to understand for others looking at your code, and also you always need to implement additional logic like index checks `ngIf="index === 0"` in order to prevent accidentally showing the component twice.
+It is very hard to understand for others looking at your code, and also you always need to implement additional logic like index checks `ngIf="index === 0"` in order to prevent accidentally showing the component multiple times.
 
 ## How
 I explained the basics in a detailed [Blog Post](https://developapa.com/add-my-link-here)
@@ -140,7 +143,7 @@ I explained the basics in a detailed [Blog Post](https://developapa.com/add-my-l
 ## FAQ
 
 ### I'm using one of the workarounds (or some other workaround), does it make sense to start using this library?
-Yes! While the workarounds all work to some extent they never feel nice to use and always cause confusions for other devs verifying your code.
+Yes! While the workarounds all work to some extent they never feel nice to use and always cause confusion for other devs verifying your code.
 
 ### I found a bug/scenario where it is not working, what shall I do?
 Please create an issue with a Stackblitz reproduction and I'm sure we will find a solution
