@@ -1,25 +1,34 @@
+// eslint-disable-next-line max-classes-per-file
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { NgxRerenderComponent } from './ngx-rerender.component';
-import { NgxRerenderContentDirective } from './ngx-rerender-content.directive';
-import { formatTestString, NgxRerenderTestRendererComponent } from './ngx-rerender.directive.spec';
+import { Component, Input, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxRerenderDirective } from './ngx-rerender.directive';
+
+export function formatTestString(value: number): string {
+  return `Component is rendered. Current iteration: ${value}`;
+}
 
 @Component({
+  selector: 'ngx-rerender-test-component',
+  template: '{{getDisplayValue()}}',
+})
+export class NgxRerenderTestRendererComponent implements OnInit {
+  public static instanceCount = 0;
+
+  public ngOnInit(): void {
+    NgxRerenderTestRendererComponent.instanceCount += 1;
+  }
+
+  public getDisplayValue(): string {
+    return formatTestString(NgxRerenderTestRendererComponent.instanceCount);
+  }
+}
+@Component({
   selector: 'test-component',
-  template: `
-    <mc-rerender [(trigger)]="trigger">
-      <ng-template mcRerenderContent>
-        <ngx-rerender-test-component ></ngx-rerender-test-component>
-      </ng-template>
-    </mc-rerender>
-    `,
+  template: '<ngx-rerender-test-component *mcRerender="trigger"></ngx-rerender-test-component>',
 })
 class HostComponent {
-  public trigger: number | string | boolean = 0;
+  @Input() public trigger: number | string | boolean = 0;
 }
 describe('NgxRerender Directive', () => {
   let spectator: ComponentFixture<HostComponent>;
@@ -27,8 +36,7 @@ describe('NgxRerender Directive', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        NgxRerenderComponent,
-        NgxRerenderContentDirective,
+        NgxRerenderDirective,
         NgxRerenderTestRendererComponent,
         HostComponent,
       ],
@@ -78,35 +86,6 @@ describe('NgxRerender Directive', () => {
     spectator.detectChanges();
     expect(NgxRerenderTestRendererComponent.instanceCount).toBe(3);
     expect(spectator.nativeElement.textContent).toBe(formatTestString(3));
-  });
-
-  it('rerenders component on boolean value update', (done): void => {
-    spectator.componentInstance.trigger = true;
-    spectator.detectChanges();
-    expect(NgxRerenderTestRendererComponent.instanceCount).toBe(1);
-    expect(spectator.nativeElement.textContent).toBe(formatTestString(1));
-
-    spectator.whenStable().then(() => {
-      spectator.detectChanges();
-      expect(spectator.componentInstance.trigger).toBe(false);
-
-      spectator.componentInstance.trigger = true;
-      spectator.detectChanges();
-      expect(NgxRerenderTestRendererComponent.instanceCount).toBe(2);
-      expect(spectator.nativeElement.textContent).toBe(formatTestString(2));
-
-      spectator.whenStable().then(() => {
-        spectator.detectChanges();
-        expect(spectator.componentInstance.trigger).toBe(false);
-
-        spectator.componentInstance.trigger = true;
-        spectator.detectChanges();
-        expect(NgxRerenderTestRendererComponent.instanceCount).toBe(3);
-        expect(spectator.nativeElement.textContent).toBe(formatTestString(3));
-
-        done();
-      });
-    });
   });
 
   it('does not rerender component if trigger value is not update', (): void => {

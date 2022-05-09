@@ -19,22 +19,28 @@ import { NgxRerenderContentDirective } from './ngx-rerender-content.directive';
 })
 export class NgxRerenderComponent implements OnChanges {
   @ViewChild('outlet', { read: ViewContainerRef }) outletRef?: ViewContainerRef;
-  @ContentChild(NgxRerenderContentDirective)
-  content!: NgxRerenderContentDirective;
-
+  @ContentChild(NgxRerenderContentDirective) public content!: NgxRerenderContentDirective;
   @Input() public trigger: boolean | number | string | unknown;
-  @Output() public triggerChange: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
+  @Output() public triggerChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (!this.outletRef) {
-      return;
-    }
     if (!changes.trigger || changes.trigger.currentValue === undefined) {
       return;
     }
-    const triggerValue: boolean | number | string | unknown =
-      changes.trigger.currentValue;
+    const triggerValue: boolean | number | string | unknown = changes.trigger.currentValue;
+
+    if (!this.outletRef) {
+      /**
+       * Even if the initial outlet is not yet ready on the first onChange
+       * we still ne to reset the boolean binding,
+       * otherwise the next change to true will not properly be tracked
+       */
+      if (typeof triggerValue === 'boolean') {
+        this.setBooleanBindingToFalse();
+      }
+      return;
+    }
+
     if (typeof triggerValue !== 'boolean') {
       this.rerender();
 
@@ -42,7 +48,7 @@ export class NgxRerenderComponent implements OnChanges {
     }
     if (triggerValue) {
       this.rerender();
-      setTimeout(() => this.triggerChange.emit(false));
+      this.setBooleanBindingToFalse();
     }
   }
 
@@ -53,5 +59,9 @@ export class NgxRerenderComponent implements OnChanges {
 
     this.outletRef.clear();
     this.outletRef.createEmbeddedView(this.content.templateRef);
+  }
+
+  private setBooleanBindingToFalse(): void {
+    setTimeout(() => this.triggerChange.emit(false));
   }
 }

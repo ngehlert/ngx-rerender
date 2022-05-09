@@ -1,12 +1,15 @@
-import { Directive, EventEmitter, Input, Output, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input, TemplateRef, ViewContainerRef,
+} from '@angular/core';
 
 @Directive({
   selector: '[mcRerender]',
 })
 class NgxRerenderDirective {
   constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
+    private templateRef: TemplateRef<unknown>,
+    private viewContainer: ViewContainerRef,
   ) {}
 
   @Input() public set mcRerender(_val: unknown) {

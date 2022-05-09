@@ -1,10 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxRerenderComponent } from './ngx-rerender.component';
 import { NgxRerenderDirective } from './ngx-rerender.directive';
 import { NgxRerenderContentDirective } from './ngx-rerender-content.directive';
-import { CommonModule } from '@angular/common';
-
-
 
 @NgModule({
   declarations: [
@@ -18,7 +16,7 @@ import { CommonModule } from '@angular/common';
   exports: [
     NgxRerenderComponent,
     NgxRerenderDirective,
-    NgxRerenderContentDirective
-  ]
+    NgxRerenderContentDirective,
+  ],
 })
 export class NgxRerenderModule { }
