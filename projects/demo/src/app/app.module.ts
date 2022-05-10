@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgxRerenderModule } from 'ngx-rerender';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxRerenderModule } from '../../../ngx-rerender/src/lib/ngx-rerender.module';
 import { TestComponent } from './test.component';
 
 @NgModule({
@@ -17,6 +16,6 @@ import { TestComponent } from './test.component';
     NgxRerenderModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

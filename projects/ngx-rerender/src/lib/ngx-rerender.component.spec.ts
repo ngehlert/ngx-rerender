@@ -125,4 +125,12 @@ describe('NgxRerender Directive', () => {
     expect(NgxRerenderTestRendererComponent.instanceCount).toBe(1);
     expect(spectator.nativeElement.textContent).toBe(formatTestString(1));
   });
+
+  it('does render component properly if no trigger binding is defined', (): void => {
+    // @ts-ignore
+    spectator.componentInstance.trigger = undefined;
+    spectator.detectChanges();
+    expect(NgxRerenderTestRendererComponent.instanceCount).toBe(1);
+    expect(spectator.nativeElement.textContent).toBe(formatTestString(1));
+  });
 });

@@ -46,3 +46,6 @@ Thumbs.db
 
 # Angular
 /.angular
+
+# coverage
+/projects/ngx-rerender/coverage
