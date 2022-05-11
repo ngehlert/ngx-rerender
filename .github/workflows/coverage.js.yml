@@ -30,8 +30,6 @@ jobs:
         content="${content//$'\r'/'%0D'}"
         # end of optional handling for multi line json
         echo "::set-output name=coverageJson::$content"
-    - run: |
-        echo "${{fromJson(steps.getJson.outputs.coverageJson).total.statements.pct}}"
   
   badge_job:
     needs: build
@@ -43,6 +41,6 @@ jobs:
           NAME: coverage
           LABEL: 'Coverage'
           ICON: 'github'
-          STATUS: ${{ fromJSON(needs.build.steps.getJson.outputs.coverage).total.statements.pct }}
+          STATUS: ${{ fromJSON(needs.build.steps.getJson.outputs.coverageJson).total.statements.pct }}
           COLOR: green
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
