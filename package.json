@@ -4,6 +4,7 @@
   "license": "MIT",
   "repository": "https://github.com/ngehlert/ngx-rerender",
   "homepage": "https://github.com/ngehlert/ngx-rerender",
+  "keywords": ["Angular", "rerender", "angular-directive", "angular-component", "directive", "component"],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
