@@ -1,0 +1,41 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm test:coverage
+    - id: getJson
+      run: |
+        content=`cat projects/ngx-render/coverage/coverage-summary.json`
+        echo "::set-output name=coverageJson::$content"
+    - run: echo "::set-output name=coverage::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+  
+  badge_job:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coverage badge
+        uses: ngehlert/ngx-rerender@latest
+        with:
+          NAME: github
+          LABEL: 'Coverage'
+          ICON: 'github'
+          STATUS: ${{ fromJSON(needs.build.steps.getJson.outputs.coverage).total.statements.pct }}
+          COLOR: green
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
