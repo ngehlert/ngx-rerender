@@ -31,7 +31,7 @@ jobs:
         # end of optional handling for multi line json
         echo "::set-output name=coverageJson::$content"
     - run: |
-        echo "${{fromJson(steps.getJson.outputs.coverageJson).total}}"
+        echo "${{fromJson(steps.getJson.outputs.coverageJson).total.statements}}"
   
   badge_job:
     needs: build
