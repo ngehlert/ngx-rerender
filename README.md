@@ -42,6 +42,7 @@ export class MyModule {}
 ````
 
 ### With directive
+[Stackblitz Example](https://stackblitz.com/edit/angular-component-rerender-8gtxcj?file=src%2Fapp%2Fapp.component.ts,src%2Fapp%2Fapp.module.ts)  
 After you've added the module import you can attach the `*mcRerender` directive to any element you like to rerender.  
 The directive accepts a parameter that you need to change if you want to trigger the rerender.  
 In my example I'm going to use a  number with increment, but you can also use any data you want that triggers a regular Angular change detection.
@@ -63,6 +64,7 @@ Keep in mind changing entries inside an array will not trigger an Angular change
 you need to copy the array in order to get a new reference.
 
 ### With component
+[Stackblitz Example](https://stackblitz.com/edit/angular-component-rerender-ez5fkt?file=src%2Fapp%2Fapp.component.ts,src%2Fapp%2Fapp.module.ts)  
 If you prefer using a component in your template you can do the following approach. The TypeScript part can stay exactly the same.  
 However, if you like you can use a boolean flag and a two-way binding and the component will always change the value back to false.
 This way you don't need to have a number as trigger, but you can use a boolean value
@@ -143,7 +145,7 @@ While this solves the two issues of the `ngIf` workaround (content blink and app
 It is very hard to understand for others looking at your code, and also you always need to implement additional logic like index checks `ngIf="index === 0"` in order to prevent accidentally showing the component multiple times.
 
 ## How
-I explained the basics in a detailed [Blog Post](https://developapa.com/add-my-link-here)
+I explained the basics in a [Blog Post](https://developapa.com/angular-rerender/)
 
 ## FAQ
 
