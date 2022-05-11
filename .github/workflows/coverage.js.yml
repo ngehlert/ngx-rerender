@@ -30,6 +30,8 @@ jobs:
         content="${content//$'\r'/'%0D'}"
         # end of optional handling for multi line json
         echo "::set-output name=coverageJson::$content"
+    - run: |
+        echo "${{fromJson(steps.getJson.outputs.coverageJson).total}}"
   
   badge_job:
     needs: build
