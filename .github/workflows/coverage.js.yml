@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coverage badge
-        uses: ngehlert/ngx-rerender@latest
+        uses: RubbaBoy/BYOB@v1.2.1
         with:
           NAME: coverage
           LABEL: 'Coverage'
