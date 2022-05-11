@@ -21,11 +21,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run test:coverage
+    - run: ls
     - id: getJson
       run: |
         content=`cat projects/ngx-render/coverage/coverage-summary.json`
         echo "::set-output name=coverageJson::$content"
-    - run: echo "::set-output name=coverage::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
   
   badge_job:
     needs: build
