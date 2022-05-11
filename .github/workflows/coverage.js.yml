@@ -19,7 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm test:coverage
+    - run: npm run test:coverage
     - id: getJson
       run: |
         content=`cat projects/ngx-render/coverage/coverage-summary.json`
@@ -33,7 +33,7 @@ jobs:
       - name: Coverage badge
         uses: ngehlert/ngx-rerender@latest
         with:
-          NAME: github
+          NAME: coverage
           LABEL: 'Coverage'
           ICON: 'github'
           STATUS: ${{ fromJSON(needs.build.steps.getJson.outputs.coverage).total.statements.pct }}
