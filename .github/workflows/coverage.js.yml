@@ -27,7 +27,7 @@ jobs:
     - run: ls projects/ngx-rerender/coverage
     - id: getJson
       run: |
-        content=`cat projects/ngx-rerender/coverage/coverage-summary.json`
+        content=`cat coverage/coverage-summary.json`
         echo "::set-output name=coverageJson::$content"
   
   badge_job:
