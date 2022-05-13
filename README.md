@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![npm](https://img.shields.io/npm/dw/ngx-rerender)
 [![Test & Lint](https://github.com/ngehlert/ngx-rerender/actions/workflows/test-lint.node.js.yml/badge.svg)](https://github.com/ngehlert/ngx-rerender/actions/workflows/test-lint.node.js.yml)
+![Coverage](https://byob.yarr.is/ngehlert/ngx-rerender/coverage)
 
 `ngx-rerender` is a small Angular library, that allows you to completely re-render a specific component/code block of your application.  
 In contrast to the regular Angular lifecycle change updates, this will completely render the given code block from scratch, so even hooks like `OnInit` will be called again. 
