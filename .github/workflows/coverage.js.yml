@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      - coverageJson: ${{ steps.getJson.outputs.coverageJson }}
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -41,6 +43,6 @@ jobs:
           NAME: coverage
           LABEL: 'Coverage'
           ICON: 'github'
-          STATUS: ${{ fromJSON(needs.build.steps.getJson.outputs.coverageJson).total.statements.pct }}
+          STATUS: ${{ fromJSON(needs.build.outputs.coverageJson).total.statements.pct }}
           COLOR: green
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
