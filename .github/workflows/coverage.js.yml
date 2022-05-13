@@ -43,6 +43,6 @@ jobs:
           NAME: coverage
           LABEL: 'Coverage'
           ICON: 'github'
-          STATUS: ${{ fromJSON(needs.build.outputs.coverageJson).total.statements.pct }}
+          STATUS: '${{ fromJSON(needs.build.outputs.coverageJson).total.statements.pct }} %'
           COLOR: green
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
