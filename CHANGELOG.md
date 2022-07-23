@@ -1,3 +1,6 @@
+# v-1.1.0 (23/07/2022)
+* Tested for Angular 14
+
 # v-1.0.3 (11/05/2022)
 * Improved readme for npm
 
