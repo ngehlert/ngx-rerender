@@ -1,3 +1,6 @@
+# v-1.2.0 (16/03/2023)
+* Tested for Angular 15
+
 # v-1.1.0 (23/07/2022)
 * Tested for Angular 14
 
