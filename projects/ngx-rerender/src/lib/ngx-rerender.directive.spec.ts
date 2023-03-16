@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+// eslint-disable-next-line import/no-unresolved
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxRerenderDirective } from './ngx-rerender.directive';
 
