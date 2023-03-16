@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+// eslint-disable-next-line import/no-unresolved
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxRerenderComponent } from './ngx-rerender.component';
 import { NgxRerenderContentDirective } from './ngx-rerender-content.directive';
 import { formatTestString, NgxRerenderTestRendererComponent } from './ngx-rerender.directive.spec';
