@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "ngx-rerender"
+  "defaultProject": "ngx-rerender",
+  "cli": {
+    "analytics": false
+  }
 }
