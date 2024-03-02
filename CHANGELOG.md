@@ -1,6 +1,10 @@
+# v-1.4.0 (02/03/2024)
+* Same as 1.3.0, Optimized for Angular 17
+
 # v-1.3.0 (28/02/2024)
+#### This one is not working in NPM. Please directly use v-1.4.0
 * Tested for Angular 17
-* 
+
 * # v-1.2.0 (16/03/2023)
 * Tested for Angular 15
 
